@@ -27,14 +27,14 @@ app.get("/api/hello", function(req, res) {
 
 app.get("/api/:date?", function(req, res) {
     const userInput = req.params.date;
-    console.log(typeof userInput)
+    //console.log(typeof userInput)
 
     function evaluateValue(userValue) {
         let evaluatedValue;
         //const timeObject = { unix: null, utc: null }
         const timeObject = {}
-        console.log(userValue)
-        console.log(Number.isInteger(userValue))
+            //console.log(userValue)
+            //console.log(Number.isInteger(userValue))
 
         function isInDesiredForm(str) {
             return /^\+?(0|[1-9]\d*)$/.test(str);
@@ -53,7 +53,7 @@ app.get("/api/:date?", function(req, res) {
             Object.assign(timeObject, { error: "Invalid Date" })
         }
 
-        console.log(timeObject)
+        //console.log(timeObject)
         res.json({ unix: timeObject.unix, utc: timeObject.utc })
     }
 
