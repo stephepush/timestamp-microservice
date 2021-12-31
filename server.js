@@ -25,7 +25,7 @@ app.get("/api/hello", function(req, res) {
     res.json({ greeting: 'hello API' });
 });
 
-app.get("/api/:date", function(req, res) {
+app.get("/api/:date?", function(req, res) {
     const userInput = req.params.date;
     console.log(typeof userInput)
 
@@ -54,7 +54,7 @@ app.get("/api/:date", function(req, res) {
         }
 
         console.log(timeObject)
-            //else return res = { error: "Invalid Date" }
+        res.json({ unix: timeObject.unix, utc: timeObject.utc })
     }
 
     evaluateValue(userInput)
