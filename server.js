@@ -41,32 +41,18 @@ app.get("/api/:date", function(req, res) {
         }
 
         Object.assign(timeObject,
-                //milliseconds
-                isInDesiredForm(userValue) && { unix: userValue },
-                isInDesiredForm(userValue) && {
-                    utc: new Date(parseInt(userValue)).toUTCString(),
-                }, !isInDesiredForm(userValue) && { unix: Date.parse(userValue) }, !isInDesiredForm(userValue) ? { utc: new Date(userValue).toUTCString() } : { error: "Invalid Date" }
+            //milliseconds
+            isInDesiredForm(userValue) && { unix: userValue },
+            isInDesiredForm(userValue) && {
+                utc: new Date(parseInt(userValue)).toUTCString(),
+            }, !isInDesiredForm(userValue) && { unix: Date.parse(userValue) }, !isInDesiredForm(userValue) && { utc: new Date(userValue).toUTCString() })
 
-                //datestring:  
-                /*Date.parse(userValue) != NaN && {
-                    unix: Date.parse(userValue),
-                    utc: new Date(userValue).toUTCString()
-                },
-                Date.parse(userValue) == NaN && Number.isInteger == false && {
-                    error: "Invalid Date"
-                }*/
-            )
-            /*if (Number.isInteger(userValue)) {
-                evaluatedValue =
-                    timeObject.unix = userValue
-                timeObject.utc = evaluatedValue
-                console.log(res)
-            } else if (Date.parse(userValue) != NaN) {
-                evaluatedValue = Date.parse(userValue)
-                timeObject.unix = evaluatedValue
-                timeObject.utc = userValue
-                console.log(res)
-            } else res = { error: "Invalid Date" }*/
+        if (isNaN(timeObject.unix)) {
+            delete timeObject.unix
+            delete timeObject.utc
+            Object.assign(timeObject, { error: "Invalid Date" })
+        }
+
         console.log(timeObject)
             //else return res = { error: "Invalid Date" }
     }
