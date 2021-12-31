@@ -25,6 +25,10 @@ app.get("/api/hello", function(req, res) {
     res.json({ greeting: 'hello API' });
 });
 
+app.get("/api/", function(req, res) {
+
+})
+
 app.get("/api/:date?", function(req, res) {
     const userInput = req.params.date;
     //console.log(typeof userInput)
