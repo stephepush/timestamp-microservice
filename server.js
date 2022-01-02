@@ -26,19 +26,23 @@ app.get("/api/hello", function(req, res) {
 });
 
 app.get("/api/", function(req, res) {
-
+    const nowSinceEpoch = Date.now()
+    const today = new Date(nowSinceEpoch)
+    const utcToday = today.toUTCString()
+    res.send({ unix: nowSinceEpoch, utc: utcToday })
 })
 
 app.get("/api/:date?", function(req, res) {
     const userInput = req.params.date;
     //console.log(typeof userInput)
+    const timeObject = {}
 
     function evaluateValue(userValue) {
         let evaluatedValue;
         //const timeObject = { unix: null, utc: null }
-        const timeObject = {}
-            //console.log(userValue)
-            //console.log(Number.isInteger(userValue))
+
+        //console.log(userValue)
+        //console.log(Number.isInteger(userValue))
 
         function isInDesiredForm(str) {
             return /^\+?(0|[1-9]\d*)$/.test(str);
@@ -58,11 +62,11 @@ app.get("/api/:date?", function(req, res) {
         }
 
         //console.log(timeObject)
-        res.json({ unix: timeObject.unix, utc: timeObject.utc })
+        //return timeObject
     }
 
     evaluateValue(userInput)
-
+    res.send({ unix: timeObject.unix, utc: timeObject.utc })
 
     //console.log(userValue)
 })
