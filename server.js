@@ -50,7 +50,7 @@ app.get("/api/:date?", function(req, res) {
 
         Object.assign(timeObject,
             //milliseconds
-            isInDesiredForm(userValue) && { unix: userValue },
+            isInDesiredForm(userValue) && { unix: parseInt(userValue) },
             isInDesiredForm(userValue) && {
                 utc: new Date(parseInt(userValue)).toUTCString(),
             }, !isInDesiredForm(userValue) && { unix: Date.parse(userValue) }, !isInDesiredForm(userValue) && { utc: new Date(userValue).toUTCString() })
