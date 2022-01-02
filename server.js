@@ -58,7 +58,7 @@ app.get("/api/:date?", function(req, res) {
         if (isNaN(timeObject.unix)) {
             delete timeObject.unix
             delete timeObject.utc
-            Object.assign(timeObject, { error: "Invalid Date" })
+            Object.assign(timeObject, { error : "Invalid Date" })
         }
 
         //console.log(timeObject)
