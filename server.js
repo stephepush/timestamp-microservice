@@ -53,26 +53,31 @@ app.get("/api/:date?", function(req, res) {
             isInDesiredForm(userValue) && { unix: parseInt(userValue) },
             isInDesiredForm(userValue) && {
                 utc: new Date(parseInt(userValue)).toUTCString(),
-            }, !isInDesiredForm(userValue) && { unix: Date.parse(userValue) }, !isInDesiredForm(userValue) && { utc: new Date(userValue).toUTCString() })
+            }, 
+            !isInDesiredForm(userValue) && { unix: Date.parse(userValue) }, 
+            !isInDesiredForm(userValue) && { utc: new Date(userValue).toUTCString() })
 
-        if (isNaN(timeObject.unix)) {
-            delete timeObject.unix
+        if (isNaN(timeObject.unix) && !isInDesiredForm(userValue)){ 
+                        delete timeObject.unix
             delete timeObject.utc
             Object.assign(timeObject, { error : "Invalid Date" })
         }
 
+        
+
         //console.log(timeObject)
         //return timeObject
     }
-
     evaluateValue(userInput)
-    res.send({ unix: timeObject.unix, utc: timeObject.utc })
+
+    res.send(timeObject)
 
     //console.log(userValue)
 })
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
+/*var listener = */
+app.listen(process.env.PORT, function() {
     console.log('Your app is listening on port ' + process.env.PORT);
 });
